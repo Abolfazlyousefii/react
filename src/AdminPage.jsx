@@ -22,46 +22,6 @@ const DEFAULT_BANNERS = [
   },
 ];
 
-function AdminLogin({ onLogin, error }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-  return (
-    <section className="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:px-8" dir="rtl">
-      <div className="rounded-[2rem] border border-black/5 bg-white p-8 shadow-2xl shadow-slate-900/10 sm:p-10">
-        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-black text-slate-700">Admin Access</span>
-        <h1 className="mt-4 text-4xl font-black text-slate-950">ورود به پنل ادمین</h1>
-        <p className="mt-3 text-sm leading-7 text-slate-600">این صفحه کاملاً جدا از صفحه اصلی ساخته شده و فقط مدیر باید وارد شود.</p>
-
-        <div className="mt-8 space-y-4">
-          <input
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="نام کاربری"
-            className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="رمز عبور"
-            className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
-          />
-
-          {error && <div className="rounded-2xl bg-rose-50 px-4 py-3 text-sm font-bold text-rose-700">{error}</div>}
-
-          <button
-            onClick={() => onLogin(username, password)}
-            className="w-full rounded-2xl bg-slate-950 px-4 py-3 text-sm font-black text-white transition hover:bg-slate-800"
-          >
-            ورود به پنل
-          </button>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function AdminPanel({ products, setProducts, banners, setBanners, credentials, setCredentials, onLogout }) {
   const [productForm, setProductForm] = useState({
     title: "",
@@ -213,10 +173,6 @@ export default function AdminPage() {
     const saved = localStorage.getItem("shop-admin-credentials");
     return saved ? JSON.parse(saved) : { username: "admin", password: "admin" };
   });
-  const [isAuthenticated, setIsAuthenticated] = useState(() =>
-    localStorage.getItem("shop-admin-auth") === "true"
-  );
-  const [error, setError] = useState("");
 
   useEffect(() => {
     localStorage.setItem("shop-products", JSON.stringify(products));
@@ -230,21 +186,8 @@ export default function AdminPage() {
     localStorage.setItem("shop-admin-credentials", JSON.stringify(credentials));
   }, [credentials]);
 
-  useEffect(() => {
-    localStorage.setItem("shop-admin-auth", isAuthenticated ? "true" : "false");
-  }, [isAuthenticated]);
-
-  const handleLogin = (username, password) => {
-    if (username === credentials.username && password === credentials.password) {
-      setIsAuthenticated(true);
-      setError("");
-      return;
-    }
-    setError("نام کاربری یا رمز عبور اشتباه است.");
-  };
-
   const logout = () => {
-    setIsAuthenticated(false);
+    window.location.href = "/";
   };
 
   return (
@@ -260,19 +203,15 @@ export default function AdminPage() {
           </a>
         </div>
       </header>
-      {!isAuthenticated ? (
-        <AdminLogin onLogin={handleLogin} error={error} />
-      ) : (
-        <AdminPanel
-          products={products}
-          setProducts={setProducts}
-          banners={banners}
-          setBanners={setBanners}
-          credentials={credentials}
-          setCredentials={setCredentials}
-          onLogout={logout}
-        />
-      )}
+      <AdminPanel
+        products={products}
+        setProducts={setProducts}
+        banners={banners}
+        setBanners={setBanners}
+        credentials={credentials}
+        setCredentials={setCredentials}
+        onLogout={logout}
+      />
     </div>
   );
 }
