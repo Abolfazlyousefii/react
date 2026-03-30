@@ -31,6 +31,7 @@ import {
   Menu,
   Percent,
   Zap,
+  User,
 } from "lucide-react";
 
 const products = [
@@ -183,6 +184,40 @@ const featureCards = [
     title: "بازگشت آسان",
     text: "در صورت نیاز، فرایند بازگشت کالا ساده و بی‌دردسر است.",
   },
+];
+
+const blogPosts = [
+  {
+    id: 1,
+    title: "چطور استایل مینیمال اما خاص داشته باشیم؟",
+    excerpt:
+      "چند نکته ساده برای ترکیب رنگ، انتخاب آیتم‌های کلیدی و ساخت استایل روزمره که همیشه جذاب به‌نظر برسد.",
+    tag: "استایل",
+    readTime: "۵ دقیقه",
+  },
+  {
+    id: 2,
+    title: "راهنمای خرید گجت برای استفاده روزانه",
+    excerpt:
+      "اگر دنبال هدفون، ساعت هوشمند یا اکسسوری دیجیتال هستی، این چک‌لیست سریع کمکت می‌کند انتخاب دقیق‌تری داشته باشی.",
+    tag: "دیجیتال",
+    readTime: "۷ دقیقه",
+  },
+  {
+    id: 3,
+    title: "نکات مهم نگهداری از کفش و کیف چرمی",
+    excerpt:
+      "با چند عادت ساده عمر محصولات چرمی را بیشتر کن و ظاهر حرفه‌ای آن‌ها را برای مدت طولانی حفظ کن.",
+    tag: "مراقبت محصول",
+    readTime: "۴ دقیقه",
+  },
+];
+
+const homeHighlights = [
+  { title: "بسته‌بندی پریمیوم", text: "تمام سفارش‌ها با بسته‌بندی شیک و امن ارسال می‌شوند." },
+  { title: "پرداخت منعطف", text: "قابلیت پرداخت امن آنلاین و گزینه‌های متنوع پرداخت." },
+  { title: "پشتیبانی سریع", text: "پاسخ‌گویی نزدیک به لحظه برای سوالات قبل و بعد خرید." },
+  { title: "تضمین قیمت", text: "ارائه قیمت رقابتی برای خرید مطمئن و اقتصادی‌تر." },
 ];
 
 const formatPrice = (value) =>
@@ -666,9 +701,18 @@ function Header({ currentPage, setCurrentPage, cartCount, favoritesCount, setCar
             {navButton("خانه", "home", LayoutGrid)}
             {navButton("محصولات", "products", Package)}
             {navButton("پیشنهادها", "offers", Percent)}
+            {navButton("وبلاگ", "blog", Sparkles)}
+            {navButton("تماس با ما", "contact", Headphones)}
           </div>
 
           <div className="flex items-center gap-3">
+            <button
+              onClick={() => setCurrentPage("account")}
+              className="hidden rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-600 shadow-sm md:inline-flex md:items-center md:gap-2"
+            >
+              <User className="h-4 w-4" />
+              اکانت
+            </button>
             <div className="hidden rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-600 shadow-sm md:block">
               {favoritesCount} علاقه‌مندی
             </div>
@@ -860,6 +904,52 @@ function HomePage({
           ))}
         </div>
       </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <div className="mb-6">
+          <span className="text-sm font-semibold text-slate-500">چرا ShopFlow؟</span>
+          <h2 className="mt-2 text-3xl font-black text-slate-950">امکانات بیشتر برای تجربه بهتر</h2>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {homeHighlights.map((item) => (
+            <div key={item.title} className="rounded-[1.5rem] border border-black/5 bg-white p-5 shadow-sm">
+              <Zap className="h-5 w-5 text-slate-900" />
+              <h3 className="mt-3 font-black text-slate-950">{item.title}</h3>
+              <p className="mt-2 text-sm leading-7 text-slate-600">{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="rounded-[2rem] border border-black/5 bg-white p-6 shadow-sm">
+          <div className="mb-6 flex items-end justify-between gap-3">
+            <div>
+              <span className="text-sm font-semibold text-slate-500">نظر مشتریان</span>
+              <h2 className="mt-2 text-3xl font-black text-slate-950">تجربه کاربران از خرید</h2>
+            </div>
+            <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-700">
+              امتیاز میانگین ۴.۸
+            </span>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            {[
+              "ارسال خیلی سریع بود و کیفیت محصول عالی بود. دقیقاً چیزی بود که می‌خواستم.",
+              "طراحی سایت جذابه و خرید خیلی راحت انجام شد. پشتیبانی هم خیلی سریع جواب داد.",
+              "تخفیف‌ها واقعی بودن و تجربه کلی خرید کاملاً حرفه‌ای و لذت‌بخش بود.",
+            ].map((text, idx) => (
+              <div key={idx} className="rounded-[1.5rem] bg-slate-50 p-4">
+                <div className="mb-3 flex items-center gap-1 text-amber-400">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-current" />
+                  ))}
+                </div>
+                <p className="text-sm leading-7 text-slate-600">{text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }
@@ -1006,6 +1096,124 @@ function ProductsPage({
           محصولی با این فیلتر پیدا نشد.
         </div>
       )}
+    </section>
+  );
+}
+
+function ContactPage() {
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="rounded-[2rem] bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-900 p-8 text-white shadow-2xl">
+        <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-black">تماس با ما</span>
+        <h1 className="mt-4 text-4xl font-black tracking-tight">همیشه در دسترس تو هستیم</h1>
+        <p className="mt-3 max-w-2xl text-sm leading-8 text-white/75">
+          اگر سوالی درباره سفارش، محصول یا پشتیبانی داری، از طریق فرم زیر یا اطلاعات تماس با ما در ارتباط باش.
+        </p>
+      </div>
+
+      <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_360px]">
+        <form className="space-y-4 rounded-[2rem] border border-black/5 bg-white p-6 shadow-sm">
+          <h2 className="text-xl font-black text-slate-950">فرم ارسال پیام</h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <input className="rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400" placeholder="نام و نام خانوادگی" />
+            <input className="rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400" placeholder="شماره تماس" />
+          </div>
+          <input className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400" placeholder="ایمیل" />
+          <textarea rows={5} className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400" placeholder="متن پیام..." />
+          <button type="button" className="rounded-2xl bg-slate-950 px-6 py-3 text-sm font-black text-white transition hover:bg-slate-800">
+            ارسال پیام
+          </button>
+        </form>
+
+        <div className="space-y-4">
+          {[
+            [Headphones, "پشتیبانی", "۲۴ ساعته در ۷ روز هفته"],
+            [Truck, "پیگیری سفارش", "۰۲۱-۱۲۳۴۵۶۷۸"],
+            [Home, "آدرس دفتر", "تهران، خیابان آزادی، پلاک ۲۱"],
+          ].map(([Icon, title, text]) => (
+            <div key={title} className="rounded-[1.5rem] border border-black/5 bg-white p-5 shadow-sm">
+              <Icon className="h-5 w-5 text-slate-900" />
+              <h3 className="mt-3 font-black text-slate-950">{title}</h3>
+              <p className="mt-2 text-sm text-slate-600">{text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BlogPage() {
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="mb-8 rounded-[2rem] border border-black/5 bg-white p-8 shadow-sm">
+        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-black text-slate-700">وبلاگ فروشگاه</span>
+        <h1 className="mt-4 text-4xl font-black tracking-tight text-slate-950">آخرین مقالات و راهنماها</h1>
+        <p className="mt-3 max-w-2xl text-sm leading-8 text-slate-600">
+          ترندها، نکات خرید هوشمند و راهنمای نگهداری محصولات را از اینجا دنبال کن.
+        </p>
+      </div>
+
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {blogPosts.map((post) => (
+          <article key={post.id} className="rounded-[2rem] border border-black/5 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+            <div className="flex items-center justify-between">
+              <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-700">
+                {post.tag}
+              </span>
+              <span className="text-xs font-semibold text-slate-500">{post.readTime}</span>
+            </div>
+            <h2 className="mt-4 text-xl font-black text-slate-950">{post.title}</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-600">{post.excerpt}</p>
+            <button className="mt-5 inline-flex items-center gap-2 text-sm font-black text-slate-950">
+              مطالعه مقاله
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function AccountPage() {
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
+        <aside className="rounded-[2rem] border border-black/5 bg-white p-6 shadow-sm">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-slate-100">
+            <User className="h-9 w-9 text-slate-700" />
+          </div>
+          <h2 className="mt-4 text-center text-xl font-black text-slate-950">کاربر مهمان</h2>
+          <p className="mt-2 text-center text-sm text-slate-500">برای مدیریت کامل سفارش‌ها وارد حساب کاربری شو.</p>
+          <button className="mt-5 w-full rounded-2xl bg-slate-950 px-4 py-3 text-sm font-black text-white transition hover:bg-slate-800">
+            ورود / ثبت‌نام
+          </button>
+        </aside>
+
+        <div className="space-y-6">
+          <div className="rounded-[2rem] bg-gradient-to-br from-indigo-950 to-slate-900 p-8 text-white shadow-2xl">
+            <h1 className="text-3xl font-black">حساب کاربری من</h1>
+            <p className="mt-3 text-sm leading-8 text-white/75">
+              وضعیت سفارش‌ها، آدرس‌ها، علاقه‌مندی‌ها و اطلاعات پرداختت را از این بخش مدیریت کن.
+            </p>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-3">
+            {[
+              ["سفارش‌های اخیر", "۳ سفارش", Package],
+              ["علاقه‌مندی‌ها", "۸ محصول", Heart],
+              ["آدرس‌های ذخیره شده", "۲ آدرس", Home],
+            ].map(([title, value, Icon]) => (
+              <div key={title} className="rounded-[1.5rem] border border-black/5 bg-white p-5 shadow-sm">
+                <Icon className="h-5 w-5 text-slate-900" />
+                <h3 className="mt-3 text-sm font-bold text-slate-500">{title}</h3>
+                <div className="mt-1 text-2xl font-black text-slate-950">{value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
@@ -1355,6 +1563,12 @@ export default function App() {
             </div>
           </section>
         )}
+
+        {currentPage === "blog" && <BlogPage />}
+
+        {currentPage === "contact" && <ContactPage />}
+
+        {currentPage === "account" && <AccountPage />}
       </main>
 
       <SiteFooter />
