@@ -707,11 +707,11 @@ function Header({ currentPage, setCurrentPage, cartCount, favoritesCount, setCar
 
           <div className="flex items-center gap-3">
             <button
-              onClick={() => setCurrentPage("account")}
+              onClick={() => setCurrentPage("login")}
               className="hidden rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-600 shadow-sm md:inline-flex md:items-center md:gap-2"
             >
               <User className="h-4 w-4" />
-              اکانت
+              ورود
             </button>
             <div className="hidden rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-600 shadow-sm md:block">
               {favoritesCount} علاقه‌مندی
@@ -1218,6 +1218,110 @@ function AccountPage() {
   );
 }
 
+function LoginPage() {
+  const floatingItems = [
+    { id: 1, label: "هودی", delay: 0, x: -95, y: -65 },
+    { id: 2, label: "کت", delay: 0.25, x: 92, y: -45 },
+    { id: 3, label: "کتانی", delay: 0.45, x: -72, y: 72 },
+    { id: 4, label: "کیف", delay: 0.65, x: 76, y: 78 },
+  ];
+
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="overflow-hidden rounded-[2.25rem] border border-black/5 bg-white shadow-2xl shadow-slate-900/10">
+        <div className="grid min-h-[680px] lg:grid-cols-2">
+          <div className="relative overflow-hidden bg-slate-950">
+            <img
+              src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=1400&q=80"
+              alt="فشن مدرن"
+              className="h-full w-full object-cover opacity-80"
+            />
+            <div className="absolute inset-0 bg-gradient-to-tr from-slate-950/80 via-slate-950/45 to-indigo-900/40" />
+
+            <div className="absolute left-1/2 top-1/2 z-10 h-52 w-52 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-white/10 backdrop-blur-xl">
+              <div className="absolute inset-0 m-auto flex h-20 w-20 items-center justify-center rounded-full bg-white text-slate-950 shadow-xl">
+                <Shirt className="h-9 w-9" />
+              </div>
+
+              {floatingItems.map((item) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, scale: 0.85 }}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                    y: [0, -10, 0],
+                    x: [item.x, item.x + 5, item.x],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    delay: item.delay,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute left-1/2 top-1/2 flex w-20 -translate-x-1/2 -translate-y-1/2 flex-col items-center rounded-2xl border border-white/20 bg-white/15 px-3 py-2 text-white backdrop-blur-md"
+                  style={{ marginLeft: `${item.x}px`, marginTop: `${item.y}px` }}
+                >
+                  <Shirt className="h-4 w-4" />
+                  <span className="mt-1 text-[11px] font-bold">{item.label}</span>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="absolute bottom-8 right-8 left-8 z-10 rounded-2xl border border-white/20 bg-white/10 p-4 text-white backdrop-blur">
+              <p className="text-xs text-white/80">ورود به تجربه خرید اختصاصی</p>
+              <h2 className="mt-2 text-2xl font-black">استایل جدیدت فقط چند کلیک فاصله داره</h2>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-center bg-white p-6 sm:p-10">
+            <div className="w-full max-w-md" dir="rtl">
+              <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-black text-slate-700">
+                ورود کاربر
+              </span>
+              <h1 className="mt-4 text-4xl font-black tracking-tight text-slate-950">
+                خوش برگشتی 👋
+              </h1>
+              <p className="mt-3 text-sm leading-7 text-slate-600">
+                برای مشاهده سفارش‌ها، علاقه‌مندی‌ها و پیشنهادهای شخصی‌سازی شده وارد حساب کاربری‌ات شو.
+              </p>
+
+              <form className="mt-8 space-y-4">
+                <label className="block">
+                  <span className="mb-2 block text-sm font-bold text-slate-700">شماره موبایل یا ایمیل</span>
+                  <input
+                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-slate-400"
+                    placeholder="مثلاً 0912xxxxxxx"
+                  />
+                </label>
+                <label className="block">
+                  <span className="mb-2 block text-sm font-bold text-slate-700">رمز عبور</span>
+                  <input
+                    type="password"
+                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-slate-400"
+                    placeholder="رمز عبور"
+                  />
+                </label>
+                <button
+                  type="button"
+                  className="w-full rounded-2xl bg-slate-950 px-4 py-3 text-sm font-black text-white transition hover:bg-slate-800"
+                >
+                  ورود به حساب
+                </button>
+              </form>
+
+              <div className="mt-5 flex items-center justify-between text-xs text-slate-500">
+                <button className="font-bold text-slate-700">فراموشی رمز عبور</button>
+                <button className="font-bold text-slate-700">ایجاد حساب جدید</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function SiteFooter() {
   return (
     <footer className="relative mt-14 overflow-hidden border-t border-white/20 bg-slate-950 text-white">
@@ -1569,6 +1673,8 @@ export default function App() {
         {currentPage === "contact" && <ContactPage />}
 
         {currentPage === "account" && <AccountPage />}
+
+        {currentPage === "login" && <LoginPage />}
       </main>
 
       <SiteFooter />
