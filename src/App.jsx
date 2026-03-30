@@ -1874,6 +1874,7 @@ export default function App() {
         cartCount={cartCount}
         favoritesCount={favorites.length}
         setCartOpen={setCartOpen}
+        isAdminAuthenticated={isAdminAuthenticated}
       />
 
       <main>
