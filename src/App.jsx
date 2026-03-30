@@ -1573,6 +1573,13 @@ function SiteFooter() {
               </li>
             ))}
           </ul>
+          <a
+            href="/admin"
+            className="mt-5 inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-2 text-xs font-black text-white transition hover:bg-white/20"
+          >
+            <ShieldCheck className="h-3.5 w-3.5" />
+            ورود به پنل ادمین
+          </a>
         </div>
 
         <div>
