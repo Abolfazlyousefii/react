@@ -677,7 +677,6 @@ function Header({
   cartCount,
   favoritesCount,
   setCartOpen,
-  isAdminAuthenticated,
 }) {
   const navButton = (label, page, icon) => {
     const Icon = icon;
@@ -731,7 +730,6 @@ function Header({
             {navButton("پیشنهادها", "offers", Percent)}
             {navButton("وبلاگ", "blog", Sparkles)}
             {navButton("تماس با ما", "contact", Headphones)}
-            {navButton("ادمین", isAdminAuthenticated ? "admin-panel" : "admin-login", ShieldCheck)}
           </div>
 
           <div className="flex items-center gap-3">
@@ -1656,7 +1654,7 @@ export default function App() {
   });
   const [adminCredentials, setAdminCredentials] = useState(() => {
     const saved = localStorage.getItem("shop-admin-credentials");
-    return saved ? JSON.parse(saved) : { username: "admin", password: "123456" };
+    return saved ? JSON.parse(saved) : { username: "admin", password: "admin" };
   });
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(() => {
     return localStorage.getItem("shop-admin-auth") === "true";
