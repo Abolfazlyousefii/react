@@ -1010,6 +1010,78 @@ function ProductsPage({
   );
 }
 
+function SiteFooter() {
+  return (
+    <footer className="relative mt-14 overflow-hidden border-t border-white/20 bg-slate-950 text-white">
+      <div className="absolute -left-20 top-0 h-56 w-56 rounded-full bg-fuchsia-500/20 blur-3xl" />
+      <div className="absolute -bottom-20 right-0 h-64 w-64 rounded-full bg-cyan-500/20 blur-3xl" />
+
+      <div className="relative mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1.2fr_1fr_1fr] lg:px-8">
+        <div>
+          <div className="inline-flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10">
+              <Store className="h-5 w-5" />
+            </div>
+            <div>
+              <div className="text-xl font-black">ShopFlow</div>
+              <div className="text-xs text-white/60">فروشگاه آنلاین مدرن</div>
+            </div>
+          </div>
+          <p className="mt-4 max-w-md text-sm leading-8 text-white/70">
+            از انتخاب محصول تا پرداخت، همه چیز برای یک تجربه خرید سریع، امن و جذاب طراحی شده.
+          </p>
+          <div className="mt-5 flex items-center gap-3">
+            <a href="#" className="rounded-xl border border-white/15 bg-white/5 p-2.5 transition hover:bg-white/10">
+              <Heart className="h-4 w-4" />
+            </a>
+            <a href="#" className="rounded-xl border border-white/15 bg-white/5 p-2.5 transition hover:bg-white/10">
+              <Sparkles className="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-sm font-black text-white/90">دسترسی سریع</h3>
+          <ul className="mt-4 space-y-3 text-sm text-white/70">
+            {["خانه", "محصولات", "پیشنهادها", "پیگیری سفارش", "سوالات متداول"].map((item) => (
+              <li key={item}>
+                <a href="#" className="transition hover:text-white">
+                  {item}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="text-sm font-black text-white/90">ارتباط با ما</h3>
+          <ul className="mt-4 space-y-3 text-sm text-white/70">
+            <li className="inline-flex items-center gap-2">
+              <Home className="h-4 w-4" />
+              تهران، خیابان آزادی، پلاک ۲۱
+            </li>
+            <li className="inline-flex items-center gap-2">
+              <CreditCard className="h-4 w-4" />
+              ۰۲۱-۱۲۳۴۵۶۷۸
+            </li>
+            <li className="inline-flex items-center gap-2">
+              <Headphones className="h-4 w-4" />
+              پشتیبانی ۲۴ ساعته
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="relative border-t border-white/10">
+        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4 text-xs text-white/60 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+          <span>© {new Date().getFullYear()} ShopFlow. تمامی حقوق محفوظ است.</span>
+          <span>طراحی شده با ❤️ برای یک فروشگاه جذاب و حرفه‌ای</span>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
 export default function App() {
   const [currentPage, setCurrentPage] = useState("home");
   const [query, setQuery] = useState("");
@@ -1284,6 +1356,8 @@ export default function App() {
           </section>
         )}
       </main>
+
+      <SiteFooter />
 
       <div className="fixed bottom-4 left-1/2 z-20 w-[calc(100%-1.5rem)] max-w-md -translate-x-1/2 rounded-[1.5rem] border border-white/30 bg-white/85 p-3 shadow-2xl shadow-slate-900/10 backdrop-blur xl:hidden">
         <div className="flex items-center justify-between gap-3">
