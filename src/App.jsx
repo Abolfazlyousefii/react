@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion as Motion } from "motion/react";
 import {
   ShoppingCart,
   Search,
@@ -263,7 +263,9 @@ function StoryStrip() {
   );
 }
 
-function PromoBanners() {
+function PromoBanners({ banners }) {
+  const [mainBanner, sideBannerOne, sideBannerTwo] = banners;
+
   return (
     <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="grid gap-4 lg:grid-cols-[1.15fr_.85fr]">
@@ -271,10 +273,15 @@ function PromoBanners() {
           <div className="absolute -left-10 top-0 h-32 w-32 rounded-full bg-cyan-300/20 blur-3xl" />
           <div className="absolute bottom-0 right-0 h-40 w-40 rounded-full bg-fuchsia-400/20 blur-3xl" />
           <div className="relative max-w-xl">
-            <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-black">بنر ویژه</span>
-            <h3 className="mt-4 text-3xl font-black leading-tight">استایل جدیدت را همین امروز بساز</h3>
+            <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-black">
+              {mainBanner?.subtitle || "بنر ویژه"}
+            </span>
+            <h3 className="mt-4 text-3xl font-black leading-tight">
+              {mainBanner?.title || "استایل جدیدت را همین امروز بساز"}
+            </h3>
             <p className="mt-3 text-sm leading-8 text-white/75">
-              کالکشن جدید با تخفیف لانچ، ارسال سریع و طراحی خاص برای فروشگاه مدرن تو.
+              {mainBanner?.description ||
+                "کالکشن جدید با تخفیف لانچ، ارسال سریع و طراحی خاص برای فروشگاه مدرن تو."}
             </p>
             <button className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:bg-slate-100">
               مشاهده پیشنهاد ویژه
@@ -285,14 +292,28 @@ function PromoBanners() {
 
         <div className="grid gap-4">
           <div className="overflow-hidden rounded-[2rem] bg-gradient-to-br from-amber-100 to-rose-100 p-6 shadow-sm">
-            <div className="inline-flex rounded-full bg-white/70 px-3 py-1 text-xs font-black text-slate-900">تا 30٪ تخفیف</div>
-            <h4 className="mt-4 text-2xl font-black text-slate-950">کالکشن پوشاک</h4>
-            <p className="mt-2 text-sm leading-7 text-slate-600">برای استایل روزمره و مینیمال، انتخاب‌های خاص منتظرته.</p>
+            <div className="inline-flex rounded-full bg-white/70 px-3 py-1 text-xs font-black text-slate-900">
+              {sideBannerOne?.subtitle || "تا 30٪ تخفیف"}
+            </div>
+            <h4 className="mt-4 text-2xl font-black text-slate-950">
+              {sideBannerOne?.title || "کالکشن پوشاک"}
+            </h4>
+            <p className="mt-2 text-sm leading-7 text-slate-600">
+              {sideBannerOne?.description ||
+                "برای استایل روزمره و مینیمال، انتخاب‌های خاص منتظرته."}
+            </p>
           </div>
           <div className="overflow-hidden rounded-[2rem] bg-gradient-to-br from-emerald-100 to-cyan-100 p-6 shadow-sm">
-            <div className="inline-flex rounded-full bg-white/70 px-3 py-1 text-xs font-black text-slate-900">دیجیتال داغ</div>
-            <h4 className="mt-4 text-2xl font-black text-slate-950">گجت‌های پریمیوم</h4>
-            <p className="mt-2 text-sm leading-7 text-slate-600">محصولات دیجیتال با ظاهر شیک و تجربه کاربری حرفه‌ای.</p>
+            <div className="inline-flex rounded-full bg-white/70 px-3 py-1 text-xs font-black text-slate-900">
+              {sideBannerTwo?.subtitle || "دیجیتال داغ"}
+            </div>
+            <h4 className="mt-4 text-2xl font-black text-slate-950">
+              {sideBannerTwo?.title || "گجت‌های پریمیوم"}
+            </h4>
+            <p className="mt-2 text-sm leading-7 text-slate-600">
+              {sideBannerTwo?.description ||
+                "محصولات دیجیتال با ظاهر شیک و تجربه کاربری حرفه‌ای."}
+            </p>
           </div>
         </div>
       </div>
@@ -305,7 +326,7 @@ function ProductCard({ product, onAdd, isFavorite, onToggleFavorite, onQuickView
   const lowStock = product.stock <= 8;
 
   return (
-    <motion.div
+    <Motion.div
       layout
       initial={{ opacity: 0, y: 26 }}
       animate={{ opacity: 1, y: 0 }}
@@ -405,7 +426,7 @@ function ProductCard({ product, onAdd, isFavorite, onToggleFavorite, onQuickView
           </button>
         </div>
       </div>
-    </motion.div>
+    </Motion.div>
   );
 }
 
@@ -416,14 +437,14 @@ function QuickViewModal({ product, open, onClose, onAdd }) {
     <AnimatePresence>
       {open && (
         <>
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-40 bg-slate-950/50 backdrop-blur-sm"
             onClick={onClose}
           />
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0, y: 30, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.98 }}
@@ -478,13 +499,13 @@ function QuickViewModal({ product, open, onClose, onAdd }) {
 
               <div className="mt-6 grid gap-3 sm:grid-cols-3">
                 {[
-                  [Truck, "ارسال سریع"],
-                  [ShieldCheck, "ضمانت اصالت"],
-                  [RotateCcw, "بازگشت آسان"],
-                ].map(([Icon, label]) => (
-                  <div key={label} className="rounded-2xl border border-slate-200 p-3 text-center">
-                    <Icon className="mx-auto h-4 w-4 text-slate-700" />
-                    <div className="mt-2 text-xs font-bold text-slate-600">{label}</div>
+                  { icon: Truck, label: "ارسال سریع" },
+                  { icon: ShieldCheck, label: "ضمانت اصالت" },
+                  { icon: RotateCcw, label: "بازگشت آسان" },
+                ].map((item) => (
+                  <div key={item.label} className="rounded-2xl border border-slate-200 p-3 text-center">
+                    <item.icon className="mx-auto h-4 w-4 text-slate-700" />
+                    <div className="mt-2 text-xs font-bold text-slate-600">{item.label}</div>
                   </div>
                 ))}
               </div>
@@ -500,7 +521,7 @@ function QuickViewModal({ product, open, onClose, onAdd }) {
                 افزودن به سبد خرید
               </button>
             </div>
-          </motion.div>
+          </Motion.div>
         </>
       )}
     </AnimatePresence>
@@ -525,14 +546,14 @@ function CartDrawer({
     <AnimatePresence>
       {open && (
         <>
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
             className="fixed inset-0 z-40 bg-slate-950/45 backdrop-blur-sm"
           />
-          <motion.aside
+          <Motion.aside
             initial={{ x: 420 }}
             animate={{ x: 0 }}
             exit={{ x: 420 }}
@@ -566,7 +587,7 @@ function CartDrawer({
                 </div>
               ) : (
                 cart.map((item) => (
-                  <motion.div
+                  <Motion.div
                     layout
                     key={item.id}
                     className="rounded-[1.75rem] border border-slate-200 bg-white p-4 shadow-sm"
@@ -612,7 +633,7 @@ function CartDrawer({
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </Motion.div>
                 ))
               )}
             </div>
@@ -643,14 +664,21 @@ function CartDrawer({
                 ادامه فرایند خرید
               </button>
             </div>
-          </motion.aside>
+          </Motion.aside>
         </>
       )}
     </AnimatePresence>
   );
 }
 
-function Header({ currentPage, setCurrentPage, cartCount, favoritesCount, setCartOpen }) {
+function Header({
+  currentPage,
+  setCurrentPage,
+  cartCount,
+  favoritesCount,
+  setCartOpen,
+  isAdminAuthenticated,
+}) {
   const navButton = (label, page, icon) => {
     const Icon = icon;
     const active = currentPage === page;
@@ -703,6 +731,7 @@ function Header({ currentPage, setCurrentPage, cartCount, favoritesCount, setCar
             {navButton("پیشنهادها", "offers", Percent)}
             {navButton("وبلاگ", "blog", Sparkles)}
             {navButton("تماس با ما", "contact", Headphones)}
+            {navButton("ادمین", isAdminAuthenticated ? "admin-panel" : "admin-login", ShieldCheck)}
           </div>
 
           <div className="flex items-center gap-3">
@@ -742,6 +771,7 @@ function HomePage({
   productsPreview,
   bestDeal,
   featureProducts,
+  banners,
   setCurrentPage,
   onAdd,
   favorites,
@@ -753,7 +783,7 @@ function HomePage({
       <StoryStrip />
 
       <section className="mx-auto grid max-w-7xl gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1.12fr_.88fr] lg:px-8 lg:py-16">
-        <motion.div
+        <Motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           className="flex flex-col justify-center"
@@ -798,9 +828,9 @@ function HomePage({
             <StatCard value="98%" label="رضایت خرید" />
             <StatCard value="24h" label="تحویل سریع" />
           </div>
-        </motion.div>
+        </Motion.div>
 
-        <motion.div
+        <Motion.div
           initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
           className="relative overflow-hidden rounded-[2.25rem] bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-900 p-6 text-white shadow-2xl shadow-slate-900/30"
@@ -839,10 +869,10 @@ function HomePage({
               ))}
             </div>
           </div>
-        </motion.div>
+        </Motion.div>
       </section>
 
-      <PromoBanners />
+      <PromoBanners banners={banners} />
 
       <section className="mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8">
         <div className="mb-6 flex items-end justify-between gap-4">
@@ -859,7 +889,7 @@ function HomePage({
           </button>
         </div>
 
-        <motion.div layout className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+        <Motion.div layout className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {productsPreview.map((product) => (
             <ProductCard
               key={product.id}
@@ -870,7 +900,7 @@ function HomePage({
               onQuickView={onQuickView}
             />
           ))}
-        </motion.div>
+        </Motion.div>
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -1078,7 +1108,7 @@ function ProductsPage({
         </div>
       </div>
 
-      <motion.div layout className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      <Motion.div layout className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {filteredProducts.map((product) => (
           <ProductCard
             key={product.id}
@@ -1089,7 +1119,7 @@ function ProductsPage({
             onQuickView={onQuickView}
           />
         ))}
-      </motion.div>
+      </Motion.div>
 
       {filteredProducts.length === 0 && (
         <div className="mt-6 rounded-[2rem] border border-dashed border-slate-300 bg-white p-10 text-center text-slate-500">
@@ -1127,14 +1157,14 @@ function ContactPage() {
 
         <div className="space-y-4">
           {[
-            [Headphones, "پشتیبانی", "۲۴ ساعته در ۷ روز هفته"],
-            [Truck, "پیگیری سفارش", "۰۲۱-۱۲۳۴۵۶۷۸"],
-            [Home, "آدرس دفتر", "تهران، خیابان آزادی، پلاک ۲۱"],
-          ].map(([Icon, title, text]) => (
-            <div key={title} className="rounded-[1.5rem] border border-black/5 bg-white p-5 shadow-sm">
-              <Icon className="h-5 w-5 text-slate-900" />
-              <h3 className="mt-3 font-black text-slate-950">{title}</h3>
-              <p className="mt-2 text-sm text-slate-600">{text}</p>
+            { icon: Headphones, title: "پشتیبانی", text: "۲۴ ساعته در ۷ روز هفته" },
+            { icon: Truck, title: "پیگیری سفارش", text: "۰۲۱-۱۲۳۴۵۶۷۸" },
+            { icon: Home, title: "آدرس دفتر", text: "تهران، خیابان آزادی، پلاک ۲۱" },
+          ].map((item) => (
+            <div key={item.title} className="rounded-[1.5rem] border border-black/5 bg-white p-5 shadow-sm">
+              <item.icon className="h-5 w-5 text-slate-900" />
+              <h3 className="mt-3 font-black text-slate-950">{item.title}</h3>
+              <p className="mt-2 text-sm text-slate-600">{item.text}</p>
             </div>
           ))}
         </div>
@@ -1201,14 +1231,14 @@ function AccountPage() {
 
           <div className="grid gap-4 md:grid-cols-3">
             {[
-              ["سفارش‌های اخیر", "۳ سفارش", Package],
-              ["علاقه‌مندی‌ها", "۸ محصول", Heart],
-              ["آدرس‌های ذخیره شده", "۲ آدرس", Home],
-            ].map(([title, value, Icon]) => (
-              <div key={title} className="rounded-[1.5rem] border border-black/5 bg-white p-5 shadow-sm">
-                <Icon className="h-5 w-5 text-slate-900" />
-                <h3 className="mt-3 text-sm font-bold text-slate-500">{title}</h3>
-                <div className="mt-1 text-2xl font-black text-slate-950">{value}</div>
+              { title: "سفارش‌های اخیر", value: "۳ سفارش", icon: Package },
+              { title: "علاقه‌مندی‌ها", value: "۸ محصول", icon: Heart },
+              { title: "آدرس‌های ذخیره شده", value: "۲ آدرس", icon: Home },
+            ].map((item) => (
+              <div key={item.title} className="rounded-[1.5rem] border border-black/5 bg-white p-5 shadow-sm">
+                <item.icon className="h-5 w-5 text-slate-900" />
+                <h3 className="mt-3 text-sm font-bold text-slate-500">{item.title}</h3>
+                <div className="mt-1 text-2xl font-black text-slate-950">{item.value}</div>
               </div>
             ))}
           </div>
@@ -1244,7 +1274,7 @@ function LoginPage() {
               </div>
 
               {floatingItems.map((item) => (
-                <motion.div
+                <Motion.div
                   key={item.id}
                   initial={{ opacity: 0, scale: 0.85 }}
                   animate={{
@@ -1264,7 +1294,7 @@ function LoginPage() {
                 >
                   <Shirt className="h-4 w-4" />
                   <span className="mt-1 text-[11px] font-bold">{item.label}</span>
-                </motion.div>
+                </Motion.div>
               ))}
             </div>
 
@@ -1313,6 +1343,188 @@ function LoginPage() {
               <div className="mt-5 flex items-center justify-between text-xs text-slate-500">
                 <button className="font-bold text-slate-700">فراموشی رمز عبور</button>
                 <button className="font-bold text-slate-700">ایجاد حساب جدید</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AdminLoginPage({ onLogin, error }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  return (
+    <section className="mx-auto max-w-3xl px-4 py-14 sm:px-6 lg:px-8">
+      <div className="rounded-[2rem] border border-black/5 bg-white p-8 shadow-2xl shadow-slate-900/10 sm:p-10">
+        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-black text-slate-700">
+          Admin Access
+        </span>
+        <h1 className="mt-4 text-4xl font-black text-slate-950">ورود به پنل ادمین</h1>
+        <p className="mt-3 text-sm leading-7 text-slate-600">
+          فقط مدیر سایت به این بخش دسترسی دارد. نام کاربری و رمز اختصاصی خودت را وارد کن.
+        </p>
+
+        <div className="mt-8 space-y-4">
+          <input
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="نام کاربری ادمین"
+            className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="رمز عبور"
+            className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-slate-400"
+          />
+
+          {error && <div className="rounded-2xl bg-rose-50 px-4 py-3 text-sm font-bold text-rose-700">{error}</div>}
+
+          <button
+            onClick={() => onLogin(username, password)}
+            className="w-full rounded-2xl bg-slate-950 px-4 py-3 text-sm font-black text-white transition hover:bg-slate-800"
+          >
+            ورود امن به پنل
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AdminPanelPage({
+  products,
+  onAddProduct,
+  banners,
+  onUpdateBanner,
+  credentials,
+  onUpdateCredentials,
+  onLogout,
+}) {
+  const [productForm, setProductForm] = useState({
+    title: "",
+    category: "پوشاک",
+    price: "",
+    originalPrice: "",
+    stock: "",
+    badge: "جدید",
+    image: "",
+    description: "",
+  });
+
+  const [credentialForm, setCredentialForm] = useState(credentials);
+
+  const submitProduct = () => {
+    if (!productForm.title || !productForm.price || !productForm.originalPrice) return;
+    onAddProduct(productForm);
+    setProductForm({
+      title: "",
+      category: "پوشاک",
+      price: "",
+      originalPrice: "",
+      stock: "",
+      badge: "جدید",
+      image: "",
+      description: "",
+    });
+  };
+
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="mb-8 flex flex-wrap items-center justify-between gap-4 rounded-[2rem] bg-slate-950 p-6 text-white">
+        <div>
+          <h1 className="text-3xl font-black">پنل مدیریت خفن فروشگاه</h1>
+          <p className="mt-2 text-sm text-white/75">
+            از اینجا می‌تونی محصول اضافه کنی، بنر سایت رو تغییر بدی و ورود ادمین رو شخصی‌سازی کنی.
+          </p>
+        </div>
+        <button
+          onClick={onLogout}
+          className="rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm font-black"
+        >
+          خروج از پنل
+        </button>
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        <div className="space-y-6">
+          <div className="rounded-[2rem] border border-black/5 bg-white p-6 shadow-sm">
+            <h2 className="text-xl font-black text-slate-950">افزودن محصول جدید</h2>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <input value={productForm.title} onChange={(e) => setProductForm((p) => ({ ...p, title: e.target.value }))} placeholder="نام محصول" className="rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none" />
+              <input value={productForm.category} onChange={(e) => setProductForm((p) => ({ ...p, category: e.target.value }))} placeholder="دسته‌بندی" className="rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none" />
+              <input value={productForm.price} onChange={(e) => setProductForm((p) => ({ ...p, price: e.target.value }))} placeholder="قیمت" className="rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none" />
+              <input value={productForm.originalPrice} onChange={(e) => setProductForm((p) => ({ ...p, originalPrice: e.target.value }))} placeholder="قیمت قبل تخفیف" className="rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none" />
+              <input value={productForm.stock} onChange={(e) => setProductForm((p) => ({ ...p, stock: e.target.value }))} placeholder="موجودی" className="rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none" />
+              <input value={productForm.badge} onChange={(e) => setProductForm((p) => ({ ...p, badge: e.target.value }))} placeholder="برچسب (مثل ویژه)" className="rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none" />
+            </div>
+            <input value={productForm.image} onChange={(e) => setProductForm((p) => ({ ...p, image: e.target.value }))} placeholder="لینک تصویر محصول" className="mt-3 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none" />
+            <textarea value={productForm.description} onChange={(e) => setProductForm((p) => ({ ...p, description: e.target.value }))} rows={3} placeholder="توضیح کوتاه محصول" className="mt-3 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none" />
+            <button onClick={submitProduct} className="mt-3 rounded-2xl bg-slate-950 px-5 py-3 text-sm font-black text-white">
+              افزودن محصول
+            </button>
+          </div>
+
+          <div className="rounded-[2rem] border border-black/5 bg-white p-6 shadow-sm">
+            <h2 className="text-xl font-black text-slate-950">تغییر اطلاعات ورود ادمین</h2>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <input value={credentialForm.username} onChange={(e) => setCredentialForm((p) => ({ ...p, username: e.target.value }))} placeholder="نام کاربری جدید" className="rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none" />
+              <input type="password" value={credentialForm.password} onChange={(e) => setCredentialForm((p) => ({ ...p, password: e.target.value }))} placeholder="رمز جدید" className="rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none" />
+            </div>
+            <button
+              onClick={() => onUpdateCredentials(credentialForm)}
+              className="mt-3 rounded-2xl bg-slate-950 px-5 py-3 text-sm font-black text-white"
+            >
+              ذخیره اطلاعات ورود
+            </button>
+          </div>
+        </div>
+
+        <div className="space-y-6">
+          <div className="rounded-[2rem] border border-black/5 bg-white p-6 shadow-sm">
+            <h2 className="text-xl font-black text-slate-950">مدیریت بنرهای سایت</h2>
+            <div className="mt-4 space-y-4">
+              {banners.map((banner, idx) => (
+                <div key={banner.id} className="rounded-2xl bg-slate-50 p-4">
+                  <div className="mb-3 text-sm font-black text-slate-800">بنر {idx + 1}</div>
+                  <input
+                    value={banner.title}
+                    onChange={(e) => onUpdateBanner(banner.id, "title", e.target.value)}
+                    placeholder="عنوان بنر"
+                    className="mb-2 w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none"
+                  />
+                  <input
+                    value={banner.subtitle}
+                    onChange={(e) => onUpdateBanner(banner.id, "subtitle", e.target.value)}
+                    placeholder="زیرعنوان بنر"
+                    className="mb-2 w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none"
+                  />
+                  <textarea
+                    rows={2}
+                    value={banner.description}
+                    onChange={(e) => onUpdateBanner(banner.id, "description", e.target.value)}
+                    placeholder="توضیح بنر"
+                    className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] border border-black/5 bg-white p-6 shadow-sm">
+            <h3 className="text-lg font-black text-slate-950">خلاصه وضعیت فروشگاه</h3>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <div className="rounded-2xl bg-slate-50 p-4 text-center">
+                <div className="text-sm text-slate-500">تعداد محصولات</div>
+                <div className="mt-1 text-2xl font-black text-slate-950">{products.length}</div>
+              </div>
+              <div className="rounded-2xl bg-slate-50 p-4 text-center">
+                <div className="text-sm text-slate-500">تعداد بنر فعال</div>
+                <div className="mt-1 text-2xl font-black text-slate-950">{banners.length}</div>
               </div>
             </div>
           </div>
@@ -1413,6 +1625,43 @@ export default function App() {
   const [promoCode, setPromoCode] = useState("");
   const [promoApplied, setPromoApplied] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState(null);
+  const [siteProducts, setSiteProducts] = useState(() => {
+    const saved = localStorage.getItem("shop-products");
+    return saved ? JSON.parse(saved) : products;
+  });
+  const [siteBanners, setSiteBanners] = useState(() => {
+    const saved = localStorage.getItem("shop-banners");
+    return saved
+      ? JSON.parse(saved)
+      : [
+          {
+            id: 1,
+            title: "استایل جدیدت را همین امروز بساز",
+            subtitle: "بنر ویژه",
+            description: "کالکشن جدید با تخفیف لانچ، ارسال سریع و طراحی خاص برای فروشگاه مدرن تو.",
+          },
+          {
+            id: 2,
+            title: "کالکشن پوشاک",
+            subtitle: "تا 30٪ تخفیف",
+            description: "برای استایل روزمره و مینیمال، انتخاب‌های خاص منتظرته.",
+          },
+          {
+            id: 3,
+            title: "گجت‌های پریمیوم",
+            subtitle: "دیجیتال داغ",
+            description: "محصولات دیجیتال با ظاهر شیک و تجربه کاربری حرفه‌ای.",
+          },
+        ];
+  });
+  const [adminCredentials, setAdminCredentials] = useState(() => {
+    const saved = localStorage.getItem("shop-admin-credentials");
+    return saved ? JSON.parse(saved) : { username: "admin", password: "123456" };
+  });
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(() => {
+    return localStorage.getItem("shop-admin-auth") === "true";
+  });
+  const [adminLoginError, setAdminLoginError] = useState("");
 
   useEffect(() => {
     localStorage.setItem("shop-favorites", JSON.stringify(favorites));
@@ -1422,8 +1671,24 @@ export default function App() {
     localStorage.setItem("shop-cart", JSON.stringify(cart));
   }, [cart]);
 
+  useEffect(() => {
+    localStorage.setItem("shop-products", JSON.stringify(siteProducts));
+  }, [siteProducts]);
+
+  useEffect(() => {
+    localStorage.setItem("shop-banners", JSON.stringify(siteBanners));
+  }, [siteBanners]);
+
+  useEffect(() => {
+    localStorage.setItem("shop-admin-credentials", JSON.stringify(adminCredentials));
+  }, [adminCredentials]);
+
+  useEffect(() => {
+    localStorage.setItem("shop-admin-auth", isAdminAuthenticated ? "true" : "false");
+  }, [isAdminAuthenticated]);
+
   const filteredProducts = useMemo(() => {
-    let result = [...products];
+    let result = [...siteProducts];
 
     if (selectedCategory !== "همه") {
       result = result.filter((item) => item.category === selectedCategory);
@@ -1465,18 +1730,18 @@ export default function App() {
     }
 
     return result;
-  }, [query, selectedCategory, sortBy, favorites, showFavoritesOnly, maxPrice]);
+  }, [query, selectedCategory, sortBy, favorites, showFavoritesOnly, maxPrice, siteProducts]);
 
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = cart.reduce((sum, item) => sum + item.quantity * item.price, 0);
   const shipping = subtotal > 0 ? 99000 : 0;
   const promoDiscount = promoApplied ? Math.round(subtotal * 0.1) : 0;
   const finalTotal = subtotal + shipping - promoDiscount;
-  const featureProducts = products.slice(0, 3);
-  const productsPreview = products.slice(0, 3);
-  const bestDeal = [...products].sort(
+  const featureProducts = siteProducts.slice(0, 3);
+  const productsPreview = siteProducts.slice(0, 3);
+  const bestDeal = [...siteProducts].sort(
     (a, b) => getDiscountPercent(b.price, b.originalPrice) - getDiscountPercent(a.price, a.originalPrice)
-  )[0];
+  )[0] || products[0];
 
   const addToCart = (product) => {
     setCartOpen(true);
@@ -1527,6 +1792,54 @@ export default function App() {
     setMaxPrice(5500000);
   };
 
+  const addAdminProduct = (form) => {
+    setSiteProducts((current) => {
+      const nextId = current.length ? Math.max(...current.map((item) => item.id)) + 1 : 1;
+      const newItem = {
+        id: nextId,
+        title: form.title,
+        category: form.category || "پوشاک",
+        price: Number(form.price),
+        originalPrice: Number(form.originalPrice),
+        rating: 4.7,
+        badge: form.badge || "جدید",
+        stock: Number(form.stock || 5),
+        description: form.description || "محصول جدید اضافه‌شده توسط پنل ادمین.",
+        image:
+          form.image ||
+          "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80",
+        colors: ["مشکی", "سفید"],
+      };
+      return [newItem, ...current];
+    });
+  };
+
+  const updateBanner = (id, field, value) => {
+    setSiteBanners((current) =>
+      current.map((banner) => (banner.id === id ? { ...banner, [field]: value } : banner))
+    );
+  };
+
+  const handleAdminLogin = (username, password) => {
+    if (username === adminCredentials.username && password === adminCredentials.password) {
+      setIsAdminAuthenticated(true);
+      setAdminLoginError("");
+      setCurrentPage("admin-panel");
+      return;
+    }
+    setAdminLoginError("نام کاربری یا رمز عبور اشتباه است.");
+  };
+
+  const updateAdminCredentials = (nextCredentials) => {
+    if (!nextCredentials.username || !nextCredentials.password) return;
+    setAdminCredentials(nextCredentials);
+  };
+
+  const logoutAdmin = () => {
+    setIsAdminAuthenticated(false);
+    setCurrentPage("home");
+  };
+
   return (
     <div
       className="min-h-screen bg-[radial-gradient(circle_at_top,_#ffffff,_#f8fafc_35%,_#eef2ff_100%)] text-slate-900"
@@ -1556,6 +1869,7 @@ export default function App() {
         cartCount={cartCount}
         favoritesCount={favorites.length}
         setCartOpen={setCartOpen}
+        isAdminAuthenticated={isAdminAuthenticated}
       />
 
       <main>
@@ -1564,6 +1878,7 @@ export default function App() {
             productsPreview={productsPreview}
             bestDeal={bestDeal}
             featureProducts={featureProducts}
+            banners={siteBanners}
             setCurrentPage={setCurrentPage}
             onAdd={addToCart}
             favorites={favorites}
@@ -1596,7 +1911,7 @@ export default function App() {
 
         {currentPage === "offers" && (
           <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-            <PromoBanners />
+            <PromoBanners banners={siteBanners} />
             <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_360px]">
               <div className="overflow-hidden rounded-[2rem] bg-slate-950 p-8 text-white shadow-2xl shadow-slate-900/20 lg:p-10">
                 <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-bold">
@@ -1675,6 +1990,25 @@ export default function App() {
         {currentPage === "account" && <AccountPage />}
 
         {currentPage === "login" && <LoginPage />}
+
+        {currentPage === "admin-login" && (
+          <AdminLoginPage onLogin={handleAdminLogin} error={adminLoginError} />
+        )}
+
+        {currentPage === "admin-panel" &&
+          (isAdminAuthenticated ? (
+            <AdminPanelPage
+              products={siteProducts}
+              onAddProduct={addAdminProduct}
+              banners={siteBanners}
+              onUpdateBanner={updateBanner}
+              credentials={adminCredentials}
+              onUpdateCredentials={updateAdminCredentials}
+              onLogout={logoutAdmin}
+            />
+          ) : (
+            <AdminLoginPage onLogin={handleAdminLogin} error={adminLoginError} />
+          ))}
       </main>
 
       <SiteFooter />
