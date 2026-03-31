@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ShieldCheck, LogOut, Plus } from "lucide-react";
+import heroImage from "./assets/hero.png";
 
 const DEFAULT_BANNERS = [
   {
@@ -51,7 +52,7 @@ function AdminPanel({ products, setProducts, banners, setBanners, credentials, s
         description: productForm.description || "محصول جدید اضافه شد.",
         image:
           productForm.image ||
-          "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80",
+          heroImage,
         colors: ["مشکی", "سفید"],
       },
       ...products,
