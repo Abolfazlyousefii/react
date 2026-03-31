@@ -1,5 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion as Motion } from "motion/react";
+import heroImage from "./assets/hero.png";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "./assets/vite.svg";
 import {
   ShoppingCart,
   Search,
@@ -46,7 +49,7 @@ const products = [
     stock: 12,
     description: "کتانی سبک و مدرن برای استفاده روزانه و استایل خیابانی.",
     image:
-      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80",
+      heroImage,
     colors: ["مشکی", "قرمز", "سفید"],
   },
   {
@@ -60,7 +63,7 @@ const products = [
     stock: 8,
     description: "کت جین مینیمال و خوش‌دوخت برای استایل روزمره و نیمه‌رسمی.",
     image:
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80",
+      reactLogo,
     colors: ["آبی", "سرمه‌ای"],
   },
   {
@@ -74,7 +77,7 @@ const products = [
     stock: 5,
     description: "کیف چرمی با طراحی تمیز و فضای کافی برای کار و دانشگاه.",
     image:
-      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=900&q=80",
+      viteLogo,
     colors: ["قهوه‌ای", "مشکی"],
   },
   {
@@ -88,7 +91,7 @@ const products = [
     stock: 9,
     description: "ساعت هوشمند با نمایشگر روشن، طراحی شیک و امکانات کاربردی.",
     image:
-      "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80",
+      heroImage,
     colors: ["نقره‌ای", "مشکی"],
   },
   {
@@ -102,7 +105,7 @@ const products = [
     stock: 14,
     description: "چراغ مطالعه مدرن با نور ملایم و ظاهر مینیمال برای اتاق کار.",
     image:
-      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
+      reactLogo,
     colors: ["سفید", "مشکی"],
   },
   {
@@ -116,7 +119,7 @@ const products = [
     stock: 7,
     description: "هدفون با کیفیت صدای عالی و طراحی راحت برای استفاده طولانی.",
     image:
-      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80",
+      viteLogo,
     colors: ["مشکی", "خاکستری"],
   },
 ];
@@ -127,35 +130,35 @@ const stories = [
     title: "ترند امروز",
     subtitle: "کالکشن جدید",
     image:
-      "https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=500&q=80",
+      heroImage,
   },
   {
     id: 2,
     title: "تخفیف ویژه",
     subtitle: "تا 40٪",
     image:
-      "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=500&q=80",
+      reactLogo,
   },
   {
     id: 3,
     title: "دیجیتال",
     subtitle: "گجت‌های داغ",
     image:
-      "https://images.unsplash.com/photo-1511556670410-f9bca7b1b0f5?auto=format&fit=crop&w=500&q=80",
+      viteLogo,
   },
   {
     id: 4,
     title: "لایف‌استایل",
     subtitle: "انتخاب خاص",
     image:
-      "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=500&q=80",
+      heroImage,
   },
   {
     id: 5,
     title: "خانه",
     subtitle: "پیشنهاد مینیمال",
     image:
-      "https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&fit=crop&w=500&q=80",
+      reactLogo,
   },
 ];
 
@@ -1260,7 +1263,7 @@ function LoginPage() {
         <div className="grid min-h-[680px] lg:grid-cols-2">
           <div className="relative overflow-hidden bg-slate-950">
             <img
-              src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=1400&q=80"
+              src={heroImage}
               alt="فشن مدرن"
               className="h-full w-full object-cover opacity-80"
             />
@@ -1812,7 +1815,7 @@ export default function App() {
         description: form.description || "محصول جدید اضافه‌شده توسط پنل ادمین.",
         image:
           form.image ||
-          "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80",
+          reactLogo,
         colors: ["مشکی", "سفید"],
       };
       return [newItem, ...current];
